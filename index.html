@@ -3,74 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iron Path — Your Training Hub</title>
+<title>GnarFit — The Iron Campaign</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0e0f0e;
-    --surface: #161917;
-    --surface2: #1e2220;
-    --border: #2a2e2b;
-    --accent: #b5f23d;
-    --accent2: #5dfc8d;
-    --accent-dim: rgba(181,242,61,0.12);
-    --text: #e8ede9;
-    --text-muted: #7a8a7d;
-    --red: #ff5252;
-    --orange: #ff9f1c;
-    --blue: #4fc3f7;
-    --purple: #ce93d8;
-    --gold: #ffd54f;
+    --bg: #0d0b0e;
+    --surface: #13111a;
+    --surface2: #1c1825;
+    --border: #2e2840;
+    --accent: #c9a84c;
+    --accent2: #e8c96a;
+    --accent-dim: rgba(201,168,76,0.12);
+    --text: #e8e0d0;
+    --text-muted: #7a6e8a;
+    --red: #c0392b;
+    --orange: #d4811a;
+    --blue: #4a90a4;
+    --purple: #8b5e9e;
+    --gold: #c9a84c;
+    --crimson: #8b1a1a;
+    --parchment: #d4c5a0;
+    --stone: #4a4560;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 16px;
     min-height: 100vh;
     overflow-x: hidden;
   }
 
-  /* BG texture */
+  /* RPG atmospheric bg */
   body::before {
     content: '';
     position: fixed; inset: 0;
-    background: radial-gradient(ellipse at 20% 20%, rgba(181,242,61,0.04) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 80%, rgba(93,252,141,0.03) 0%, transparent 60%);
+    background: 
+      radial-gradient(ellipse at 15% 10%, rgba(139,26,26,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 90%, rgba(74,68,96,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.03) 0%, transparent 70%);
     pointer-events: none; z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
   }
 
   /* NAV */
   nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(14,15,14,0.92);
-    backdrop-filter: blur(16px);
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(13,11,14,0.97);
+    backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
-    padding: 0 24px;
+    padding: 0 16px;
     display: flex; align-items: center; justify-content: space-between;
-    height: 60px;
+    height: 58px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+  nav::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.4;
   }
   .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 26px; letter-spacing: 2px;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 18px; letter-spacing: 1px;
     color: var(--accent);
+    text-shadow: 0 0 20px rgba(201,168,76,0.4);
   }
   .nav-logo span { color: var(--text-muted); }
-  .nav-links { display: flex; gap: 4px; }
-  .nav-links button {
-    background: none; border: none;
-    color: var(--text-muted); cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px; font-weight: 500;
-    padding: 6px 12px; border-radius: 6px;
-    transition: all 0.15s;
-    letter-spacing: 0.5px;
-  }
-  .nav-links button:hover, .nav-links button.active {
-    color: var(--accent); background: var(--accent-dim);
-  }
   .nav-streak {
     display: flex; align-items: center; gap: 6px;
     background: var(--surface2); border: 1px solid var(--border);
@@ -79,6 +86,81 @@
   }
   .streak-fire { font-size: 16px; }
   .streak-num { color: var(--gold); font-weight: 500; }
+
+  /* Hamburger button */
+  .hamburger {
+    background: none; border: none; cursor: pointer;
+    padding: 8px; display: flex; flex-direction: column;
+    gap: 5px; justify-content: center;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text); border-radius: 2px;
+    transition: all 0.25s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Overlay */
+  .menu-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6); z-index: 299;
+    backdrop-filter: blur(2px);
+  }
+  .menu-overlay.open { display: block; }
+
+  /* Drawer */
+  .menu-drawer {
+    position: fixed; top: 0; left: -290px; width: 270px; height: 100%;
+    background: linear-gradient(180deg, #13111a 0%, #0f0d15 100%);
+    border-right: 1px solid var(--border);
+    box-shadow: 4px 0 30px rgba(0,0,0,0.6);
+    z-index: 300; transition: left 0.3s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column;
+  }
+  .menu-drawer::before {
+    content: '';
+    position: absolute; top: 0; right: 0; width: 1px; height: 100%;
+    background: linear-gradient(180deg, transparent, var(--accent), transparent);
+    opacity: 0.3;
+  }
+  .menu-drawer.open { left: 0; }
+  .menu-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    height: 58px;
+  }
+  .menu-close {
+    background: none; border: none; color: var(--text-muted);
+    font-size: 18px; cursor: pointer; padding: 4px 8px;
+    border-radius: 6px; transition: color 0.15s;
+  }
+  .menu-close:hover { color: var(--accent); }
+  .menu-items {
+    display: flex; flex-direction: column;
+    padding: 16px 0; gap: 0;
+  }
+  .menu-item {
+    background: none; border: none; color: var(--text-muted);
+    cursor: pointer; font-family: 'Cinzel', serif;
+    font-size: 13px; font-weight: 400; letter-spacing: 2px;
+    padding: 16px 24px; text-align: left;
+    display: flex; align-items: center; gap: 14px;
+    transition: all 0.2s; border-radius: 0;
+    border-bottom: 1px solid rgba(46,40,64,0.4);
+    position: relative;
+  }
+  .menu-item::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; background: var(--accent);
+    transform: scaleY(0); transition: transform 0.2s;
+  }
+  .menu-item:hover { color: var(--accent); background: var(--accent-dim); }
+  .menu-item:hover::before { transform: scaleY(1); }
+  .menu-item.active { color: var(--accent); background: var(--accent-dim); }
+  .menu-item.active::before { transform: scaleY(1); }
+  .menu-icon { font-size: 16px; width: 22px; text-align: center; opacity: 0.8; }
 
   /* PAGES */
   .page { display: none; position: relative; z-index: 1; }
@@ -93,70 +175,93 @@
   }
   .day-label {
     font-family: 'DM Mono', monospace;
-    font-size: 12px; color: var(--text-muted);
-    letter-spacing: 2px; text-transform: uppercase;
-    margin-bottom: 6px;
+    font-size: 11px; color: var(--text-muted);
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 8px; opacity: 0.7;
   }
   .day-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(48px, 8vw, 80px);
-    line-height: 0.9; letter-spacing: 2px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(36px, 7vw, 68px);
+    font-weight: 700;
+    line-height: 1; letter-spacing: 1px;
     color: var(--text);
+    text-shadow: 0 0 40px rgba(201,168,76,0.15);
   }
   .day-title span { color: var(--accent); }
   .day-subtitle {
     font-size: 16px; color: var(--text-muted);
-    margin-top: 10px; font-weight: 300;
+    margin-top: 10px; font-style: italic;
+    font-family: 'Crimson Text', serif;
   }
   .checkin-btn {
     display: flex; flex-direction: column; align-items: center;
-    gap: 6px; padding: 20px 28px; border-radius: 16px;
-    border: 2px solid var(--border); background: var(--surface);
+    gap: 6px; padding: 20px 28px; border-radius: 4px;
+    border: 1px solid var(--border); 
+    background: linear-gradient(135deg, var(--surface) 0%, #0f0d15 100%);
     cursor: pointer; transition: all 0.2s; min-width: 120px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Cinzel', serif;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    position: relative; overflow: hidden;
   }
-  .checkin-btn:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .checkin-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), transparent);
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .checkin-btn:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,168,76,0.2); }
+  .checkin-btn:hover::before { opacity: 1; }
   .checkin-btn.checked { background: var(--accent-dim); border-color: var(--accent); }
   .checkin-icon { font-size: 36px; }
-  .checkin-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
+  .checkin-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); font-weight: 400; font-family: 'Cinzel', serif; }
   .checkin-status { font-size: 13px; font-weight: 600; color: var(--accent); display: none; }
   .checkin-btn.checked .checkin-status { display: block; }
   .checkin-btn.checked .checkin-label { display: none; }
 
   /* Quote bar */
   .quote-bar {
-    background: var(--surface2); border: 1px solid var(--border);
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
     border-left: 3px solid var(--accent);
-    border-radius: 8px; padding: 14px 18px;
+    border-radius: 2px; padding: 14px 20px;
     margin-bottom: 28px;
-    font-size: 14px; color: var(--text-muted); font-style: italic;
+    font-size: 15px; color: var(--parchment); font-style: italic;
+    font-family: 'Crimson Text', serif;
+    opacity: 0.85;
   }
 
   /* TYPE BADGE */
   .type-badge {
     display: inline-flex; align-items: center; gap: 6px;
-    padding: 4px 10px; border-radius: 20px;
-    font-size: 11px; font-weight: 600; letter-spacing: 1px;
+    padding: 4px 12px; border-radius: 2px;
+    font-size: 10px; font-weight: 600; letter-spacing: 2px;
     text-transform: uppercase; margin-bottom: 24px;
+    font-family: 'Cinzel', serif;
   }
-  .badge-strength { background: rgba(79,195,247,0.15); color: var(--blue); border: 1px solid rgba(79,195,247,0.3); }
-  .badge-cardio { background: rgba(255,159,28,0.15); color: var(--orange); border: 1px solid rgba(255,159,28,0.3); }
-  .badge-recovery { background: rgba(206,147,216,0.15); color: var(--purple); border: 1px solid rgba(206,147,216,0.3); }
+  .badge-strength { background: rgba(139,26,26,0.2); color: #c97a7a; border: 1px solid rgba(139,26,26,0.4); }
+  .badge-cardio { background: rgba(212,129,26,0.15); color: #d4a56a; border: 1px solid rgba(212,129,26,0.3); }
+  .badge-recovery { background: rgba(139,94,158,0.15); color: #b08ec0; border: 1px solid rgba(139,94,158,0.3); }
   .badge-rest { background: rgba(122,138,125,0.12); color: var(--text-muted); border: 1px solid var(--border); }
 
   /* EXERCISE TABLE */
   .section-header {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px; letter-spacing: 2px; color: var(--accent);
-    margin: 28px 0 14px; display: flex; align-items: center; gap: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 14px; font-weight: 600; letter-spacing: 3px; color: var(--accent);
+    margin: 28px 0 14px; display: flex; align-items: center; gap: 12px;
+    text-transform: uppercase;
+  }
+  .section-header::before {
+    content: '⚔'; font-size: 12px; opacity: 0.6;
   }
   .section-header::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
   }
   .exercise-grid { display: flex; flex-direction: column; gap: 8px; }
   .exercise-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 14px 18px;
+    background: linear-gradient(135deg, var(--surface) 0%, #100e18 100%);
+    border: 1px solid var(--border);
+    border-radius: 4px; padding: 14px 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
     display: grid; grid-template-columns: 1fr auto;
     align-items: center; gap: 12px;
     transition: border-color 0.15s;
@@ -189,7 +294,7 @@
     border-radius: 16px; padding: 40px; text-align: center;
   }
   .rest-icon { font-size: 64px; margin-bottom: 16px; }
-  .rest-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--text-muted); letter-spacing: 2px; }
+  .rest-title { font-family: 'Cinzel', serif; font-size: 36px; color: var(--text-muted); letter-spacing: 2px; }
   .rest-msg { color: var(--text-muted); font-size: 15px; margin-top: 10px; max-width: 400px; margin-left: auto; margin-right: auto; }
 
   /* STATS ROW */
@@ -198,11 +303,13 @@
     margin-bottom: 28px;
   }
   .stat-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 16px 18px;
+    background: linear-gradient(135deg, var(--surface) 0%, #100e18 100%);
+    border: 1px solid var(--border);
+    border-radius: 4px; padding: 16px 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
   }
-  .stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--accent); line-height: 1; }
-  .stat-label { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+  .stat-val { font-family: 'Cinzel', serif; font-size: 30px; font-weight: 700; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 10px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; font-family: 'Cinzel', serif; }
 
   /* CALENDAR */
   .cal-grid {
@@ -226,12 +333,13 @@
   /* WEEKLY OVERVIEW */
   .week-grid { display: flex; flex-direction: column; gap: 10px; }
   .week-row {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 16px 20px;
+    background: linear-gradient(135deg, var(--surface) 0%, #100e18 100%);
+    border: 1px solid var(--border);
+    border-radius: 4px; padding: 16px 20px;
     display: grid; grid-template-columns: 100px 1fr auto;
     align-items: center; gap: 16px;
   }
-  .week-day-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; }
+  .week-day-name { font-family: 'Cinzel', serif; font-size: 16px; font-weight: 700; letter-spacing: 1px; }
   .week-focus { font-size: 14px; }
   .week-focus-name { font-weight: 600; }
   .week-focus-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
@@ -240,15 +348,16 @@
   /* NUTRITION */
   .nutrition-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .nutrition-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 20px;
+    background: linear-gradient(135deg, var(--surface) 0%, #100e18 100%);
+    border: 1px solid var(--border);
+    border-radius: 4px; padding: 20px;
   }
   .nutrition-card h3 {
-    font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px;
+    font-family: 'Cinzel', serif; font-size: 18px; letter-spacing: 1px;
     color: var(--accent); margin-bottom: 10px;
   }
   .nutrition-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
-  .nutrition-card .big-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--text); line-height: 1; margin-bottom: 6px; }
+  .nutrition-card .big-num { font-family: 'Cinzel', serif; font-size: 48px; color: var(--text); line-height: 1; margin-bottom: 6px; }
   .nutrition-card .unit { font-size: 14px; color: var(--text-muted); }
 
   /* WEIGHT LOG */
@@ -273,8 +382,9 @@
 
   /* Chart */
   .chart-wrap {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 20px; margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--surface) 0%, #100e18 100%);
+    border: 1px solid var(--border);
+    border-radius: 4px; padding: 20px; margin-bottom: 20px;
     overflow-x: auto;
   }
   canvas#weightChart { width: 100%; max-height: 200px; }
@@ -294,10 +404,11 @@
 
   /* NOTIFICATION */
   .notif-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 24px; margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--surface) 0%, #100e18 100%);
+    border: 1px solid var(--border);
+    border-radius: 4px; padding: 24px; margin-bottom: 20px;
   }
-  .notif-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: var(--accent); margin-bottom: 8px; }
+  .notif-card h3 { font-family: 'Cinzel', serif; font-size: 20px; letter-spacing: 1px; color: var(--accent); margin-bottom: 8px; }
   .notif-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; }
   .notif-time-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .notif-time-row input[type="time"] {
@@ -314,8 +425,8 @@
   /* Page headers */
   .page-header { margin-bottom: 28px; }
   .page-header .page-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px; letter-spacing: 3px; color: var(--text);
+    font-family: 'Cinzel', serif;
+    font-size: 32px; font-weight: 700; letter-spacing: 3px; color: var(--text);
     line-height: 1;
   }
   .page-header .page-sub { font-size: 14px; color: var(--text-muted); margin-top: 6px; }
@@ -323,7 +434,7 @@
   /* PROGRESS PAGE */
   .progress-section { margin-bottom: 32px; }
   .progress-section h2 {
-    font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px;
+    font-family: 'Cinzel', serif; font-size: 22px; letter-spacing: 2px;
     color: var(--accent); margin-bottom: 16px;
     padding-bottom: 8px; border-bottom: 1px solid var(--border);
   }
@@ -356,30 +467,165 @@
     .week-row { grid-template-columns: 80px 1fr; }
     .week-dur { display: none; }
   }
+
+  /* RPG ornate corners */
+  .rpg-corner {
+    position: relative;
+  }
+  .rpg-corner::before, .rpg-corner::after {
+    content: '✦';
+    position: absolute;
+    color: var(--accent);
+    font-size: 10px;
+    opacity: 0.4;
+  }
+  .rpg-corner::before { top: 6px; left: 8px; }
+  .rpg-corner::after { bottom: 6px; right: 8px; }
+
+  /* Video button RPG style */
+  .video-btn {
+    font-family: 'Cinzel', serif !important;
+    font-size: 10px !important;
+    letter-spacing: 1px !important;
+  }
+
+  /* h2 in progress/nutrition pages */
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin: 24px 0 14px;
+    text-transform: uppercase;
+  }
+  h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  /* Exercise name font */
+  .ex-name {
+    font-family: 'Cinzel', serif !important;
+    font-size: 13px !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  /* Btn primary RPG */
+  .btn-primary {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 1px;
+    border-radius: 4px !important;
+  }
+
+  /* Input fields */
+  input[type="number"], input[type="time"], select {
+    font-family: 'DM Mono', monospace;
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 4px !important;
+    color: var(--text) !important;
+  }
+  input:focus, select:focus {
+    border-color: var(--accent) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(201,168,76,0.15) !important;
+  }
+
+
+  /* RPG decorative divider */
+  .rpg-divider {
+    text-align: center; color: var(--accent); opacity: 0.3;
+    font-size: 14px; letter-spacing: 8px; margin: 20px 0;
+  }
+
+  /* Glowing accent text */
+  .glow-text {
+    text-shadow: 0 0 20px rgba(201,168,76,0.5), 0 0 40px rgba(201,168,76,0.2);
+  }
+
+  /* Week focus text */
+  .week-focus { 
+    font-family: 'Crimson Text', serif !important; 
+    font-style: italic;
+  }
+
+  /* Exercise notes - Crimson italic */
+  .ex-notes {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 13px;
+  }
+
+  /* HOW TO button */
+  .video-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 1px;
+    border-radius: 3px !important;
+    border-color: rgba(201,168,76,0.3) !important;
+    color: var(--accent) !important;
+  }
+  .video-btn:hover {
+    background: rgba(201,168,76,0.1) !important;
+    border-color: var(--accent) !important;
+  }
+
+  /* Streak badge on nav */
+  .nav-streak {
+    border-color: rgba(201,168,76,0.3) !important;
+    background: rgba(201,168,76,0.06) !important;
+  }
+
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">IRON<span>PATH</span></div>
-  <div class="nav-links">
-    <button onclick="showPage('today')" class="active" id="nav-today">TODAY</button>
-    <button onclick="showPage('week')" id="nav-week">SCHEDULE</button>
-    <button onclick="showPage('progress')" id="nav-progress">PROGRESS</button>
-    <button onclick="showPage('nutrition')" id="nav-nutrition">NUTRITION</button>
-    <button onclick="showPage('settings')" id="nav-settings">⚙</button>
-  </div>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-logo">Gnar<span>Fit</span></div>
   <div class="nav-streak">
     <span class="streak-fire">🔥</span>
     <span class="streak-num" id="streakNum">0</span>
-    <span style="color:var(--text-muted); font-size:11px;">DAY STREAK</span>
+    <span style="color:var(--text-muted); font-size:10px; font-family:'DM Mono',monospace; letter-spacing:1px;">STREAK</span>
   </div>
 </nav>
+
+<!-- Slide-out menu -->
+<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+<div class="menu-drawer" id="menuDrawer">
+  <div class="menu-header">
+    <div class="nav-logo" style="font-size:18px;">Gnar<span>Fit</span></div>
+    <button onclick="closeMenu()" class="menu-close">✕</button>
+  </div>
+  <div class="menu-items">
+    <button onclick="showPage('today'); closeMenu();" class="menu-item active" id="nav-today">
+      <span class="menu-icon">📅</span> THE DAILY QUEST
+    </button>
+    <button onclick="showPage('week'); closeMenu();" class="menu-item" id="nav-week">
+      <span class="menu-icon">📋</span> QUESTLOG
+    </button>
+    <button onclick="showPage('progress'); closeMenu();" class="menu-item" id="nav-progress">
+      <span class="menu-icon">📈</span> CHARACTER SHEET
+    </button>
+    <button onclick="showPage('nutrition'); closeMenu();" class="menu-item" id="nav-nutrition">
+      <span class="menu-icon">🥗</span> PROVISIONS
+    </button>
+    <button onclick="showPage('settings'); closeMenu();" class="menu-item" id="nav-settings">
+      <span class="menu-icon">⚙️</span> THE CODEX
+    </button>
+  </div>
+</div>
 
 <!-- TODAY PAGE -->
 <div class="page active" id="page-today">
   <div class="container">
-    <div class="day-hero">
+    <div class="day-hero rpg-corner">
       <div>
         <div class="day-label" id="todayLabel">LOADING...</div>
         <div class="day-title" id="todayTitle">—</div>
@@ -387,8 +633,8 @@
       </div>
       <button class="checkin-btn" id="checkinBtn" onclick="toggleCheckin()">
         <span class="checkin-icon" id="checkinIcon">☐</span>
-        <span class="checkin-label">CHECK IN</span>
-        <span class="checkin-status">✓ DONE</span>
+        <span class="checkin-label">⚔ BEGIN QUEST</span>
+        <span class="checkin-status">✦ QUEST ACTIVE</span>
       </button>
     </div>
     <div class="quote-bar" id="quoteBar"></div>
@@ -414,8 +660,8 @@
 <div class="page" id="page-week">
   <div class="container">
     <div class="page-header">
-      <div class="page-title">WEEKLY SCHEDULE</div>
-      <div class="page-sub">Your 5-day training split. Click any day to see its full workout.</div>
+      <div class="page-title">THE QUESTLOG</div>
+      <div class="page-sub">Your 5-day campaign. Select any day to review its trials.</div>
     </div>
     <div class="week-grid" id="weekGrid"></div>
   </div>
@@ -425,15 +671,15 @@
 <div class="page" id="page-progress">
   <div class="container">
     <div class="page-header">
-      <div class="page-title">PROGRESS</div>
-      <div class="page-sub">Track your weight, workouts, and momentum.</div>
+      <div class="page-title">CHARACTER SHEET</div>
+      <div class="page-sub">Chronicle your transformation. Every number tells part of the saga.</div>
     </div>
 
     <div class="progress-section">
-      <h2>WEIGHT LOG</h2>
+      <h2>⚔ STAT CHRONICLE</h2>
       <div class="weight-input-row">
-        <input type="number" id="weightInput" placeholder="Enter today's weight (lbs)" step="0.1" min="100" max="500">
-        <button class="btn-primary" onclick="logWeight()">LOG IT</button>
+        <input type="number" id="weightInput" placeholder="Enter weight (lbs)" step="0.1" min="100" max="500">
+        <button class="btn-primary" onclick="logWeight()">⚔ RECORD</button>
       </div>
       <div class="chart-wrap">
         <canvas id="weightChart" height="200"></canvas>
@@ -442,7 +688,7 @@
     </div>
 
     <div class="progress-section">
-      <h2>CHECK-IN CALENDAR</h2>
+      <h2>⚔ CAMPAIGN CALENDAR</h2>
       <div id="calendarWrap"></div>
     </div>
   </div>
@@ -452,8 +698,8 @@
 <div class="page" id="page-nutrition">
   <div class="container">
     <div class="page-header">
-      <div class="page-title">NUTRITION</div>
-      <div class="page-sub">Eat to fuel performance and maximize fat loss.</div>
+      <div class="page-title">PROVISIONS</div>
+      <div class="page-sub">A warrior is only as strong as their fuel. Manage your resources wisely.</div>
     </div>
     <div class="nutrition-grid">
       <div class="nutrition-card">
@@ -498,13 +744,13 @@
 <div class="page" id="page-settings">
   <div class="container">
     <div class="page-header">
-      <div class="page-title">SETTINGS</div>
-      <div class="page-sub">Reminders, preferences, and app info.</div>
+      <div class="page-title">THE CODEX</div>
+      <div class="page-sub">Configure your campaign settings and quest alerts.</div>
     </div>
 
     <div class="notif-card">
-      <h3>🔔 Workout Reminders</h3>
-      <p>Enable browser notifications and set a daily reminder time. Your browser will send you a nudge even when the app isn't open (as long as you've visited the page recently). Works best on desktop or when added to your phone's home screen.</p>
+      <h3>🔔 Quest Alerts</h3>
+      <p>Enable quest alerts and set a daily reminder time. Your browser will send you a nudge even when the app isn't open (as long as you've visited the page recently). Works best on desktop or when added to your phone's home screen.</p>
       <div class="notif-time-row">
         <input type="time" id="reminderTime" value="08:00">
         <button class="btn-primary" onclick="saveReminder()">ENABLE REMINDERS</button>
@@ -525,9 +771,8 @@
     </div>
 
     <div class="notif-card">
-      <h3>ℹ️ About IronPath</h3>
-      <p>Built for a 295 → 195 lb transformation goal. 5 training days per week using dumbbells, kettlebell, barbell, and adjustable bench. All data is stored locally on your device — nothing is sent anywhere.<br><br>
-      <strong style="color:var(--text)">Program by:</strong> Claude (Anthropic) &nbsp;|&nbsp; <strong style="color:var(--text)">Version:</strong> 1.0</p>
+      <h3>ℹ️ About GnarFit</h3>
+      <p>Built for a weight loss transformation goal. 5 training days per week using dumbbells, kettlebell, barbell, and adjustable bench. All data is stored locally on your device — nothing is sent anywhere.<br><br>
     </div>
   </div>
 </div>
@@ -632,20 +877,20 @@ const WORKOUTS = {
 };
 
 const QUOTES = [
-  "You don't have to be great to start, but you have to start to be great.",
-  "The only bad workout is the one that didn't happen.",
-  "Discipline is choosing between what you want now and what you want most.",
-  "Progress, not perfection. Every rep counts.",
-  "The pain you feel today will be the strength you feel tomorrow.",
-  "100 lbs doesn't come off in a week. It comes off one day at a time.",
-  "You already decided to change. Now prove it.",
-  "Show up. That's 90% of the battle.",
-  "The body achieves what the mind believes.",
-  "You're one workout away from a good mood.",
-  "Hard days build the strongest people.",
-  "Don't wish it were easier — wish you were stronger.",
-  "Every day you don't quit is a day you win.",
-  "Your future self is counting on you today.",
+  "A warrior is not born in comfort. They are forged in the crucible of effort.",
+  "The iron does not care for your excuses. Only your presence.",
+  "Each rep is a coin paid to your future self.",
+  "100 lbs does not fall in a day. It falls one quest at a time.",
+  "You chose this path. Now walk it.",
+  "The dungeon respawns. The gains do not.",
+  "Show up. The rest is just mechanics.",
+  "Discipline is the bridge between the hero you are and the one you seek to become.",
+  "Even the bards needed to practice their scales.",
+  "Your character sheet updates one session at a time.",
+  "Hard days forge the sharpest blades.",
+  "Do not wish the quest were easier. Wish you were stronger.",
+  "Every day you don't quit is XP earned.",
+  "Your future self has already cleared this dungeon. Catch up.",
 ];
 
 // =========================================================
@@ -733,7 +978,7 @@ function renderToday() {
 
   // Hero
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  document.getElementById('todayLabel').textContent = days[dow].toUpperCase() + ' — ' + now.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+  document.getElementById('todayLabel').textContent = '⚔ ' + days[dow].toUpperCase() + '  ·  ' + now.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
   document.getElementById('todayTitle').innerHTML = workout.name.split(' ').map((w,i) => i===workout.name.split(' ').length-1 ? `<span>${w}</span>` : w + ' ').join('');
   document.getElementById('todaySubtitle').textContent = workout.focus + (workout.duration !== '—' ? ' · ' + workout.duration : '');
 
@@ -758,19 +1003,19 @@ function renderToday() {
     content.innerHTML = `
       <div class="rest-card">
         <div class="rest-icon">😴</div>
-        <div class="rest-title">REST & RECOVER</div>
+        <div class="rest-title">DAY OF RESPITE</div>
         <p class="rest-msg">${workout.desc}</p>
-        <p class="rest-msg" style="margin-top:16px; color:var(--accent)">Your muscles grow while you rest. This day is part of the program.</p>
+        <p class="rest-msg" style="margin-top:16px; color:var(--accent)">Even the mightiest warriors rest between battles. Your body forges strength in the silence.</p>
       </div>`;
     return;
   }
 
   const badgeClass = workout.type === 'strength' ? 'badge-strength' : workout.type === 'cardio' ? 'badge-cardio' : 'badge-recovery';
-  const badgeLabel = workout.type === 'strength' ? '⚡ Strength' : workout.type === 'cardio' ? '🔥 Cardio' : '🌿 Active Recovery';
+  const badgeLabel = workout.type === 'strength' ? '⚔️ Battle Training' : workout.type === 'cardio' ? '🔥 The Gauntlet' : '🌿 Healing Arc';
 
   let html = `<span class="type-badge ${badgeClass}">${badgeLabel}</span>`;
   html += `<p style="color:var(--text-muted); font-size:14px; margin-bottom:20px; line-height:1.6;">${workout.desc}</p>`;
-  html += `<div class="section-header">EXERCISES</div><div class="exercise-grid">`;
+  html += `<div class="section-header">TRIAL EXERCISES</div><div class="exercise-grid">`;
 
   workout.exercises.forEach(ex => {
     html += `<div class="exercise-card">
@@ -852,7 +1097,7 @@ function renderCalendar() {
   const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-  let html = `<div style="font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; color:var(--text); margin-bottom:12px;">${monthNames[month]} ${year}</div>`;
+  let html = `<div style="font-family:'Cinzel',serif; font-size:22px; letter-spacing:2px; color:var(--text); margin-bottom:12px;">${monthNames[month]} ${year}</div>`;
   html += `<div class="cal-grid">`;
   dayNames.forEach(d => html += `<div class="cal-day-header">${d}</div>`);
   for (let i = 0; i < firstDay; i++) html += `<div class="cal-day empty"></div>`;
@@ -1063,7 +1308,7 @@ function closeBanner() { document.getElementById('notifyBanner').classList.remov
 // =========================================================
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-links button, .menu-item').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   document.getElementById('nav-' + id)?.classList.add('active');
   if (id === 'progress') { renderCalendar(); renderWeightLog(); }
@@ -1100,6 +1345,28 @@ window.addEventListener('load', () => {
   }
 });
 window.addEventListener('resize', () => { if (document.getElementById('page-progress').classList.contains('active')) renderWeightLog(); });
+
+
+  // Hamburger menu
+  function toggleMenu() {
+    const drawer = document.getElementById('menuDrawer');
+    const overlay = document.getElementById('menuOverlay');
+    const btn = document.getElementById('hamburgerBtn');
+    const isOpen = drawer.classList.contains('open');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      drawer.classList.add('open');
+      overlay.classList.add('open');
+      btn.classList.add('open');
+    }
+  }
+
+  function closeMenu() {
+    document.getElementById('menuDrawer').classList.remove('open');
+    document.getElementById('menuOverlay').classList.remove('open');
+    document.getElementById('hamburgerBtn').classList.remove('open');
+  }
 
   // Pull-to-refresh
   (function() {
